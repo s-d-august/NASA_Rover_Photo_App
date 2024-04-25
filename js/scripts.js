@@ -1,6 +1,6 @@
 let imgRepository = (function () {
     let imgList = [];
-    let apiUrl = 'https://api.nasa.gov/mars-photos/api/v1/rovers/' + roverChoice + '/latest_photos?api_key=DEMO_KEY'
+    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos?api_key=DEMO_KEY'
 
     function getAll() {
         return imgList;
