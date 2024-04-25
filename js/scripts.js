@@ -2,6 +2,9 @@ let imgRepository = (function () {
     let imgList = [];
     let apiUrl = 'https://api.nasa.gov/mars-photos/api/v1/rovers/' + roverChoice + '/latest_photos?api_key=DEMO_KEY'
 
+    function getAll() {
+        return imgList;
+    }
 
     function addListener(button, img) { //listener to open modal with details
         $(button).on('click', function () {
