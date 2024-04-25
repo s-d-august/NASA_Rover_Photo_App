@@ -1,6 +1,6 @@
 let roverChoice = 'curiosity'
 
-let imgRepository = (function () {
+
     let imgList = [];
     let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos?api_key=DEMO_KEY'
 
@@ -10,7 +10,7 @@ let imgRepository = (function () {
 
     function addListener(button, img) { //listener to open modal with details
         $(button).on('click', function () {
-            showDetails(img);
+            showModal(img);
         })}
 
     function loadList() { //loads image thumbnails and details and pushes them to the imgList array
@@ -47,16 +47,9 @@ let imgRepository = (function () {
         addListener(thumbnailListItem, img)
     }
 
-    return {
-        getAll,
-        loadList,
-        addThumbnail
-    }
 
-})();
-
-imgRepository.loadList().then(function (){
-    imgRepository.getAll().each(function (img) {
-        imgRepository.addThumbnail(img)
+loadList().then(function (){
+    $(imgList).each(function (img) {
+        addThumbnail(img)
     })
 })
