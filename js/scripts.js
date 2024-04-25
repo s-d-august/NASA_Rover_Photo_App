@@ -9,7 +9,7 @@ let imgRepository = (function () {
                     img: item.img_src,
                     detailsUrl: item.url
                 };
-                add(thumbnail);
+                imgList.push(thumbnail);
             }
             )
         }).catch(function (e) {
