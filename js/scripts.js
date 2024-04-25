@@ -16,10 +16,19 @@ let imgRepository = (function () {
     function loadList() { //loads image thumbnails and details and pushes them to the imgList array
         $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
             $(responseJSON).each(function (item) {
+
+                let roverName = $(responseJSON.rover).map(function (rover) {
+                    return rover.rover.name;
+                })
+
+                let cameraName = $(responseJSON.camera).map(function (rover) {
+                    return rover.camera.name;
+                })
+
                 let photo = {
                     img: item.img_src,
-                    roverName: item.rover.name,
-                    cameraName: item.camera.full_name,
+                    roverName: roverName,
+                    cameraName: cameraName,
                     solDate: item.sol,
                     earthDate: item.earth_date
                 };
