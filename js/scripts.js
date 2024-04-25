@@ -44,4 +44,8 @@ let imgRepository = (function () {
 
 })();
 
+imgRepository.loadList().then(function (){
+    imgRepository.getAll().each(function (img) {
+        imgRepository.addThumbnail(img)
+    })
 })
