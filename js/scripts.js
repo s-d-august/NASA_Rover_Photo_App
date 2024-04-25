@@ -14,7 +14,7 @@ let imgRepository = (function () {
         })}
 
     function loadList() { //loads image thumbnails and details and pushes them to the imgList array
-        $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
+        return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
             $(responseJSON).each(function (item) {
 
                 let roverName = $(responseJSON.rover).map(function (rover) {
