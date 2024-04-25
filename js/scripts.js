@@ -2,7 +2,7 @@ let imgRepository = (function () {
     let imgList = [];
     let apiUrl = 'https://api.nasa.gov/mars-photos/api/v1/rovers/' + roverChoice + '/latest_photos?api_key=DEMO_KEY'
 
-    function addListener(button, img) {
+    function addListener(button, img) { //listener to open modal with details
         $(button).on('click', function () {
             showDetails(img);
         })}
@@ -21,4 +21,12 @@ let imgRepository = (function () {
             console.error(e);
         })
     } // loadList
+
+    function addThumbnail(img) { //constructs array of thumbnails 
+        let thumbnailList = $('#thumbnails');
+        let thumbnailListItem = $('<img class="col" src=' + img.img_src + ' style="width:150px;height:150px">')
+        thumbnailList.append(thumbnailListItem);
+        addListener(thumbnailListItem, img)
+    }
+
 })
