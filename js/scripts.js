@@ -36,4 +36,12 @@ let imgRepository = (function () {
         addListener(thumbnailListItem, img)
     }
 
+    return {
+        getAll,
+        loadList,
+        addThumbnail
+    }
+
+})();
+
 })
