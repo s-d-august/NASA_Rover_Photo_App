@@ -1,3 +1,5 @@
+let roverChoice = 'curiosity'
+
 let imgRepository = (function () {
     let imgList = [];
     let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos?api_key=DEMO_KEY'
