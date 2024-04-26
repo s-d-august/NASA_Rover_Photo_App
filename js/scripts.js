@@ -37,7 +37,7 @@ let roverChoice = 'curiosity'
     } // loadList
 
 let dummyArray = [
-    {
+   {
         id: 1,
         solDate: 12312,
         earthDate: 12387023,
@@ -63,9 +63,9 @@ let dummyArray = [
     }
 ]
 
-    function addThumbnail(photo) { //constructs array of thumbnails 
-        let url = photo.img;
-        let number = imgList.indexOf(photo);
+    function addThumbnail(photo, index) { //constructs array of thumbnails 
+        let url = index.img;
+        let number = dummyArray.indexOf(index);
         let thumbnailList = $('#thumbnails');
         let thumbnailListItem = $(`<img class="col" data-toggle="modal" data-target="#exampleModal" data-whatever="` + number + `" src="` + url + `" style="width:150px;height:150px">`)
         thumbnailList.append(thumbnailListItem);
@@ -74,7 +74,7 @@ let dummyArray = [
 $('#exampleModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var number = button.data('whatever')
-        var contents = imgList[number] // Extract info from data-* attributes
+        var contents = dummyArray[number] // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
@@ -88,7 +88,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
       })
 
 loadList().then(function (){
-    $.each(imgList, function (img) {
-        addThumbnail(img)
+    $.each(dummyArray, function (photo, index) {
+        addThumbnail(photo, index)
     })
 })
