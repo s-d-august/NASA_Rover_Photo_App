@@ -40,11 +40,12 @@ let roverChoice = 'curiosity'
         })
     } // loadList
 
-    function addThumbnail(img) { //constructs array of thumbnails 
+    function addThumbnail(photo) { //constructs array of thumbnails 
+        let url = photo.img;
         let thumbnailList = $('#thumbnails');
-        let thumbnailListItem = $('<img class="col" src=' + img.img_src + ' style="width:150px;height:150px">')
+        let thumbnailListItem = $(`<img class="col" src="` + url + `" style="width:150px;height:150px">`)
         thumbnailList.append(thumbnailListItem);
-        addListener(thumbnailListItem, img)
+        addListener(thumbnailListItem, photo)
     }
 
 
