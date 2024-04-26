@@ -17,11 +17,11 @@ let roverChoice = 'curiosity'
         return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
             $.each(responseJSON, function (item) {
 
-                let roverName = $(responseJSON.rover).map(function (rover) {
+                let roverName = $(item.rover).map(function (rover) {
                     return rover.rover.name;
                 })
 
-                let cameraName = $(responseJSON.camera).map(function (rover) {
+                let cameraName = $(item.camera).map(function (rover) {
                     return rover.camera.name;
                 })
 
