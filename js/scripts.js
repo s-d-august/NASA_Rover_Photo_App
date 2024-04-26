@@ -15,7 +15,7 @@ let roverChoice = 'curiosity'
 
     function loadList() { //loads image thumbnails and details and pushes them to the imgList array
         return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
-            $(responseJSON).each(function (item) {
+            $.each(responseJSON, function (item) {
 
                 let roverName = $(responseJSON.rover).map(function (rover) {
                     return rover.rover.name;
@@ -49,7 +49,7 @@ let roverChoice = 'curiosity'
 
 
 loadList().then(function (){
-    $(imgList).each(function (img) {
+    $.each(imgList, function (img) {
         addThumbnail(img)
     })
 })
