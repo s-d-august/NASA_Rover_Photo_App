@@ -2,7 +2,7 @@ let roverChoice = 'curiosity'
 
 
     let imgList = [];
-    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos?api_key=DEMO_KEY'
+    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
 
     function getAll() {
         return imgList;
