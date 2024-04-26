@@ -36,6 +36,33 @@ let roverChoice = 'curiosity'
         })
     } // loadList
 
+let dummyArray = [
+    {
+        id: 1,
+        solDate: 12312,
+        earthDate: 12387023,
+        camera: {name: "FHAZ", id: 20},
+        rover: {name: "Curiosity", id:5},
+        img_src: "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04102/opgs/edr/fcam/FLB_761645828EDR_F1060660FHAZ00302M_.JPG"
+    },
+    {
+        id: 2,
+        solDate: 67867,
+        earthDate: 45289134709,
+        camera: {name: "RHAZ", id: 30},
+        rover: {name: "Curiosity", id:9},
+        img_src: "https://mars.nasa.gov/msl-raw-images/msss/04102/mhli/4102MH0001530001404334U01_DXXX.jpg"
+    },
+    {
+        id: 3,
+        solDate: 235245,
+        earthDate: 112346514,
+        camera: {name: "MAST", id: 40},
+        rover: {name: "Curiosity", id:6},
+        img_src: "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04102/opgs/edr/rcam/RRB_761645951EDR_S1060660RHAZ00300M_.JPG"
+    }
+]
+
     function addThumbnail(photo) { //constructs array of thumbnails 
         let url = photo.img;
         let number = imgList.indexOf(photo);
