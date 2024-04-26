@@ -8,11 +8,6 @@ let roverChoice = 'curiosity'
         return imgList;
     }
 
-    function addListener(button, img) { //listener to open modal with details
-        $(button).on('click', function () {
-            showModal(img);
-        })}
-
     function loadList() { //loads image thumbnails and details and pushes them to the imgList array
         return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
             $.each(responseJSON.latest_photos, function (item) {
@@ -45,7 +40,6 @@ let roverChoice = 'curiosity'
         let thumbnailList = $('#thumbnails');
         let thumbnailListItem = $(`<img class="col" data-toggle="modal" data-target="#exampleModal" src="` + url + `" style="width:150px;height:150px">`)
         thumbnailList.append(thumbnailListItem);
-        addListener(thumbnailListItem, photo)
     }
 
 
