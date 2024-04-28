@@ -17,7 +17,7 @@ let roverChoice = 'curiosity'
                 })
 
                 let cameraName = $(item.camera).map(function (rover) {
-                    return rover.camera.name;
+                    return rover.camera.full_name;
                 })
 
                 let photo = {
