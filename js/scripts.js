@@ -73,8 +73,8 @@ let dummyArray = [
     }
 
 $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var number = button.data('whatever') // Extract info from data-* attributes
+        var thumbnail = $(event.relatedTarget) // Thumbnail that triggered the modal
+        var number = thumbnail.data('whatever') // Extract info from data-* attributes
         var contents = dummyArray[number] // Gets object from array using the index number variable from addThumbnail
 
         let modalText = // template literal of modal text
