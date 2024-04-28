@@ -74,24 +74,17 @@ let dummyArray = [
 
 $('#exampleModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
-        var number = button.data('whatever')
-        var contents = dummyArray[number] // Extract info from data-* attributes
-        console.log(contents)
-        let roverName = contents.roverName
-        let id = contents.id
-        let img = contents.img
-        let cameraName = contents.cameraName
-        let solDate = contents.solDate
-        let earthDate = contents.earthDate
-        let modalText = 
-            `Camera: ${cameraName}
-Martian Sol Date: ${solDate}
-Earth Date: ${earthDate}`
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text(roverName + ', #' + id)
-        modal.find('.modal-body img').attr('src', img)
+        var number = button.data('whatever') // Extract info from data-* attributes
+        var contents = dummyArray[number] // Gets object from array using the index number variable from addThumbnail
+
+        let modalText = // template literal of modal text
+            `Camera: ${contents.cameraName}
+Martian Sol Date: ${contents.solDate}
+Earth Date: ${contents.earthDate}`
+
+        var modal = $(this) // updates the modal contents
+        modal.find('.modal-title').text(contents.roverName + ', #' + contents.id)
+        modal.find('.modal-body img').attr('src', contents.img)
         modal.find('.modal-body p').text(modalText)
         let imgSize = (modal.find('img'))[0].naturalWidth
         modalSize (imgSize, modal)
