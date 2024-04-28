@@ -18,9 +18,9 @@ let imgList = [
         return imgList;
     }
 
-function loadRovers() {
-    $.each(rovers, function (roverChoice) {
-        loadList(roverChoice)
+function loadRovers(rovers) {
+    $.each(rovers, function (index, roverChoice) {
+        loadList(index, roverChoice)
     })
 }
 
