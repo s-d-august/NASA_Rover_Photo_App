@@ -24,7 +24,7 @@ function loadRovers() {
     })
 }
 
-    function loadList(roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
+    function loadList(index, roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
         let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
         return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
             $.each(responseJSON.latest_photos, function (item) {
