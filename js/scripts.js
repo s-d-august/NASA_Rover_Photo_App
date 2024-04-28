@@ -92,7 +92,24 @@ Earth Date: ${earthDate}`
         modal.find('.modal-title').text(roverName + ', #' + id)
         modal.find('.modal-body img').attr('src', img)
         modal.find('.modal-body p').text(modalText)
+        let imgSize = (modal.find('img'))[0].naturalWidth
+        modalSize (imgSize, modal)
       })
+
+function modalSize (imgSize, modal) {
+    let modalWidth = modal.find('.modal-dialog')
+
+    if (imgSize > 766) {
+        modalWidth.attr('class', 'modal-dialog modal-xl')
+    }
+    else if (imgSize > 466) {
+        modalWidth.attr('class', 'modal-dialog modal-lg')
+    }
+    else {
+        modalWidth.attr('class', 'modal-dialog')
+    }
+
+}
 
 loadList().then(function (){
     $.each(dummyArray, function (photo, index) {
