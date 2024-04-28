@@ -7,8 +7,12 @@ click on rover name to display images for that rover
 
 let rovers = ["spirit", "curiosity", "perseverance", "opportunity"]
 
-
-    let imgList = [];
+let imgList = [
+    [],
+    [],
+    [],
+    []
+];
 
     function getAll() {
         return imgList;
