@@ -67,7 +67,8 @@ let dummyArray = [
         let url = index.img;
         let number = dummyArray.indexOf(index);
         let thumbnailList = $('#thumbnails');
-        let thumbnailListItem = $(`<img class="col" data-toggle="modal" data-target="#exampleModal" data-whatever="` + number + `" src="` + url + `" style="width:150px;height:150px">`)
+        let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#exampleModal" 
+            data-whatever="` + number + `" src="` + url + `">`)
         thumbnailList.append(thumbnailListItem);
     }
 
