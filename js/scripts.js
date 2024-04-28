@@ -1,14 +1,27 @@
-let roverChoice = 'curiosity'
+/* 
+
+load images from all four rovers
+click on rover name to display images for that rover
+
+*/
+
+let rovers = ["spirit", "curiosity", "perseverance", "opportunity"]
 
 
     let imgList = [];
-    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
 
     function getAll() {
         return imgList;
     }
 
-    function loadList() { //loads image thumbnails and details and pushes them to the imgList array
+function loadRovers() {
+    $.each(rovers, function (roverChoice) {
+        loadList(roverChoice)
+    })
+}
+
+    function loadList(roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
+        let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
         return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
             $.each(responseJSON.latest_photos, function (item) {
 
@@ -28,13 +41,14 @@ let roverChoice = 'curiosity'
                     earthDate: item.earth_date,
                     id: item.id,
                 };
-                imgList.push(photo);
+                roverImg.push(photo);
+                imgList.push(roverImg)
             }
             )
         }).catch(function (e) {
             console.error(e);
         })
-    } // loadList
+    } // loadList function
 
 let dummyArray = [
    {
@@ -105,7 +119,7 @@ function modalSize (imgSize, modal) {
 
 }
 
-loadList().then(function (){
+loadRovers().then(function (){
     $.each(dummyArray, function (photo, index) {
         addThumbnail(photo, index)
     })
