@@ -65,7 +65,7 @@ let dummyArray = [
 
     function addThumbnail(photo, index) { //constructs array of thumbnails 
         let url = index.img;
-        let number = dummyArray.indexOf(index);
+        let number = dummyArray.indexOf(index); // gets index number from array to call details in modal
         let thumbnailList = $('#thumbnails');
         let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#exampleModal" 
             data-whatever="` + number + `" src="` + url + `">`)
@@ -86,7 +86,7 @@ Earth Date: ${contents.earthDate}`
         modal.find('.modal-title').text(contents.roverName + ', #' + contents.id)
         modal.find('.modal-body img').attr('src', contents.img)
         modal.find('.modal-body p').text(modalText)
-        let imgSize = (modal.find('img'))[0].naturalWidth
+        let imgSize = (modal.find('img'))[0].naturalWidth // gets the size of the photo to adjust modal width
         modalSize (imgSize, modal)
       })
 
