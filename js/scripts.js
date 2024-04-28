@@ -45,8 +45,8 @@ function loadRovers() {
                     earthDate: item.earth_date,
                     id: item.id,
                 };
-                roverImg.push(photo);
-                imgList.push(roverImg)
+
+                imgList[index].push(photo)
             }
             )
         }).catch(function (e) {
