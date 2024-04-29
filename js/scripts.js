@@ -5,7 +5,7 @@ click on rover name to display images for that rover
 
 */
 
-let rovers = ["spirit", "curiosity", "perseverance", "opportunity"]
+let rovers = ["curiosity", "opportunity", "perseverance", "spirit"]
 
 let imgList = [
     [],
