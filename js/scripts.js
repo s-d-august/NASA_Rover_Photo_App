@@ -114,7 +114,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     var contents = dummyArray[number] // Gets object from array using the index number variable from addThumbnail
 
     let modalText = // template literal of modal text
-        `Camera: ${contents.cameraName}
+`Camera: ${contents.cameraName}
 Martian Sol Date: ${contents.solDate}
 Earth Date: ${contents.earthDate}`
 
