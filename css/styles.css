@@ -1,68 +1,69 @@
  @font-face {
-    font-family: 'Nasalization'; src: url('../files/nasalization-rg.otf')
+     font-family: 'Nasalization';
+     src: url('../files/nasalization-rg.otf')
  }
 
  * {
-    font-family: Helvetica, sans-serif;
+     font-family: Helvetica, sans-serif;
  }
 
  body {
-    background-color: black;
+     background-color: black;
  }
- 
+
  p {
-    white-space: pre-wrap;
-    margin-bottom: 0;
+     white-space: pre-wrap;
+     margin-bottom: 0;
  }
 
  .display-1 {
-    font-family: 'Nasalization', Helvetica;
-    font-size: 1.75rem;
+     font-family: 'Nasalization', Helvetica;
+     font-size: 1.75rem;
  }
 
  .img-thumbnail {
-    padding: .25rem;
-    height: 150px;
-    width: 200px;
-    margin-bottom: 20px;
+     padding: .25rem;
+     height: 150px;
+     width: 200px;
+     margin-bottom: 20px;
  }
 
  .img-fluid {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1rem;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     margin-bottom: 1rem;
  }
 
  .row {
-    justify-content: space-evenly;
+     justify-content: space-evenly;
  }
 
  .col {
-    flex-grow: 0;
+     flex-grow: 0;
  }
 
-.nav-item {
-    font-weight: bold;
-}
+ .nav-item {
+     font-weight: bold;
+ }
 
-.navbar {
-    background-color: darkred;
-}
+ .navbar {
+     background-color: darkred;
+ }
 
-.navbar-nav {
-    align-items: flex-end;
-}
+ .navbar-nav {
+     align-items: flex-end;
+ }
 
-.container {
-    margin-top: 90px;
-}
+ .container {
+     margin-top: 90px;
+ }
 
-.modal-header {
-    background-color: darkred;
-}
+ .modal-header {
+     background-color: darkred;
+ }
 
-.modal-title {
-    font-family: 'Nasalization', Helvetica !important;
-    font-size: 1.25rem;
-}
+ .modal-title {
+     font-family: 'Nasalization', Helvetica !important;
+     font-size: 1.25rem;
+ }
