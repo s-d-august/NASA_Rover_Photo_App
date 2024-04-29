@@ -98,11 +98,11 @@ $.each(dummyArray, function (photo, index) { // constructs grid of thumbnails fr
     thumbnailList.append(thumbnailListItem);
     })
 
-loadRovers(rovers).then(function () {
+/* loadRovers(rovers).then(function () {
     let roverIndex = 0;
     $.each((imgList[roverIndex]), function (photo, index) {
         addThumbnail(photo, index)})
-})
+}) */
 
 
 
