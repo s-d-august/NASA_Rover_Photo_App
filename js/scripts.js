@@ -14,18 +14,9 @@ let imgList = [
     []
 ];
 
-    function getAll() {
-        return imgList;
-    }
-
-function loadRovers(rovers) {
-    $.each(rovers, function (index, roverChoice) {
-        loadList(index, roverChoice)
-    })
-}
-
-    function loadList(index, roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
+function loadList(index, roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
         let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
+        console.log(index, roverChoice)
         return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
             $.each(responseJSON.latest_photos, function (item) {
 
@@ -47,12 +38,19 @@ function loadRovers(rovers) {
                 };
 
                 imgList[index].push(photo)
+
             }
             )
         }).catch(function (e) {
             console.error(e);
         })
     } // loadList function
+
+    function loadRovers(rovers) {
+        $.each(rovers, function (index, roverChoice) {
+            loadList(index, roverChoice)
+        })
+    }
 
 let dummyArray = [
    {
@@ -81,50 +79,64 @@ let dummyArray = [
     }
 ]
 
-    function addThumbnail(photo, index) { //constructs array of thumbnails 
-        let url = index.img;
-        let number = dummyArray.indexOf(index); // gets index number from array to call details in modal
+function addThumbnail(roverIndex, photo, photoIndex) { //constructs grid of thumbnails; "photo" isn't called, but it doesn't work without it
+        let url = photoIndex.img;
+        let subArray = imgList[roverIndex];
+        let indexNumber = subArray.indexOf(photoIndex); // gets index number from array to call details in modal
         let thumbnailList = $('#thumbnails');
         let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#exampleModal" 
-            data-whatever="` + number + `" src="` + url + `">`)
+            data-whatever="` + indexNumber + `" src="` + url + `">`)
         thumbnailList.append(thumbnailListItem);
     }
 
-$('#exampleModal').on('show.bs.modal', function (event) {
-        var thumbnail = $(event.relatedTarget) // Thumbnail that triggered the modal
-        var number = thumbnail.data('whatever') // Extract info from data-* attributes
-        var contents = dummyArray[number] // Gets object from array using the index number variable from addThumbnail
+$.each(dummyArray, function (photo, index) { // constructs grid of thumbnails from dummy array
+    let url = index.img; 
+    let number = dummyArray.indexOf(index); // gets index number from array to call details in modal
+    let thumbnailList = $('#thumbnails');
+    let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#exampleModal" 
+        data-whatever="` + number + `" src="` + url + `">`)
+    thumbnailList.append(thumbnailListItem);
+    })
 
-        let modalText = // template literal of modal text
-            `Camera: ${contents.cameraName}
+loadRovers(rovers).then(function () {
+    let roverIndex = 0;
+    $.each((imgList[roverIndex]), function (photo, index) {
+        addThumbnail(photo, index)})
+})
+
+
+
+//MODAL DISPLAY
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+    var thumbnail = $(event.relatedTarget) // Thumbnail that triggered the modal
+    var number = thumbnail.data('whatever') // Extract info from data-* attributes
+    var contents = dummyArray[number] // Gets object from array using the index number variable from addThumbnail
+
+    let modalText = // template literal of modal text
+        `Camera: ${contents.cameraName}
 Martian Sol Date: ${contents.solDate}
 Earth Date: ${contents.earthDate}`
 
-        var modal = $(this) // updates the modal contents
-        modal.find('.modal-title').text(contents.roverName + ', #' + contents.id)
-        modal.find('.modal-body img').attr('src', contents.img)
-        modal.find('.modal-body p').text(modalText)
-        let imgSize = (modal.find('img'))[0].naturalWidth // gets the size of the photo to adjust modal width
-        modalSize (imgSize, modal)
-      })
+    var modal = $(this) // updates the modal contents
+    modal.find('.modal-title').text(contents.roverName + ', #' + contents.id)
+    modal.find('.modal-body img').attr('src', contents.img)
+    modal.find('.modal-body p').text(modalText)
+    let imgSize = (modal.find('img'))[0].naturalWidth // gets the size of the photo to adjust modal width
+    modalSize (imgSize, modal)
+  })
 
 function modalSize (imgSize, modal) {
-    let modalWidth = modal.find('.modal-dialog')
+let modalWidth = modal.find('.modal-dialog')
 
-    if (imgSize > 766) {
-        modalWidth.attr('class', 'modal-dialog modal-xl')
-    }
-    else if (imgSize > 466) {
-        modalWidth.attr('class', 'modal-dialog modal-lg')
-    }
-    else {
-        modalWidth.attr('class', 'modal-dialog')
-    }
-
+if (imgSize > 766) {
+    modalWidth.attr('class', 'modal-dialog modal-xl')
+}
+else if (imgSize > 466) {
+    modalWidth.attr('class', 'modal-dialog modal-lg')
+}
+else {
+    modalWidth.attr('class', 'modal-dialog')
 }
 
-loadRovers().then(function (){
-    $.each(dummyArray, function (photo, index) {
-        addThumbnail(photo, index)
-    })
-})
+}
