@@ -20,18 +20,11 @@ function loadList(index, roverChoice) { //loads image thumbnails and details and
         return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
             $.each(responseJSON.latest_photos, function (item) {
 
-                let roverName = $(item.rover).map(function (rover) {
-                    return rover.rover.name;
-                })
-
-                let cameraName = $(item.camera).map(function (rover) {
-                    return rover.camera.full_name;
-                })
 
                 let photo = {
                     img: item.img_src,
-                    roverName: roverName,
-                    cameraName: cameraName,
+                    roverName: item.rover.name,
+                    cameraName: item.camera.name,
                     solDate: item.sol,
                     earthDate: item.earth_date,
                     id: item.id,
