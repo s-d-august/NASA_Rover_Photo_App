@@ -55,9 +55,10 @@ function addThumbnail(index, item) { //constructs grid of thumbnails
 //MODAL DISPLAY
 
 $('#modal').on('show.bs.modal', function (event) {
+    let roverIndex = $(".active").attr("data-whatever");
     var thumbnail = $(event.relatedTarget) // Thumbnail that triggered the modal
     var number = thumbnail.data('whatever') // Extract info from data-* attributes
-    var contents = imgList[number] // Gets object from array using the index number variable from addThumbnail
+    var contents = imgList[roverIndex][number] // Gets object from array using the index number variable from addThumbnail
 
     let modalText = // template literal of modal text
         `Camera: ${contents.cameraName}
