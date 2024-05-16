@@ -101,7 +101,7 @@ $.each(dummyArray, function (photo, index) { // constructs grid of thumbnails fr
 
 //MODAL DISPLAY
 
-$('#exampleModal').on('show.bs.modal', function (event) {
+$('#modal').on('show.bs.modal', function (event) {
     var thumbnail = $(event.relatedTarget) // Thumbnail that triggered the modal
     var number = thumbnail.data('whatever') // Extract info from data-* attributes
     var contents = dummyArray[number] // Gets object from array using the index number variable from addThumbnail
