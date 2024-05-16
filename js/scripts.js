@@ -5,7 +5,7 @@ click on rover name to display images for that rover
 
 */
 
-let rovers = ["curiosity", "opportunity", "perseverance", "spirit"]
+let roverArray = ["curiosity", "opportunity", "perseverance", "spirit"]
 
 let imgList = [
     [],
@@ -14,39 +14,80 @@ let imgList = [
     []
 ];
 
-function loadList(index, roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
-        let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
-        console.log(index, roverChoice)
-        return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
-            $.each(responseJSON.latest_photos, function (item) {
+function loadRovers() {
+    $.each(roverArray, function (index, roverChoice) {
+        loadList(index, roverChoice)
+    })
+}
+
+function loadList(subArray, roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
+    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
+    return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
+        $.each(responseJSON.latest_photos, function (index, item) {
+
+            let photo = {
+                img: item.img_src,
+                roverName: item.rover.name,
+                cameraName: item.camera.full_name,
+                solDate: item.sol,
+                earthDate: item.earth_date,
+                id: item.id,
+            };
+
+            imgList[subArray].push(photo)
+
+        }
+        )
+    }).catch(function (e) {
+        console.error(e);
+    })
+} // loadList function
+
+function addThumbnail(item, index) { //constructs grid of thumbnails
+    console.log(item, index)
+    let thumbnailList = $('#thumbnails');
+    let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#modal" 
+            data-whatever="${index}" src="${item.img}">`) //data-whatever passes the index number so the details can be called in the modal
+    thumbnailList.append(thumbnailListItem);
+}
 
 
-                let photo = {
-                    img: item.img_src,
-                    roverName: item.rover.name,
-                    cameraName: item.camera.name,
-                    solDate: item.sol,
-                    earthDate: item.earth_date,
-                    id: item.id,
-                };
-
-                imgList[index].push(photo)
-
-            }
-            )
-        }).catch(function (e) {
-            console.error(e);
+function loadRoversAndBuildThumbnails() {
+    return new Promise((resolve, reject) => {
+        try {
+            loadRovers();
+            console.log('ok');
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+    })
+        .then(() => {
+            let activeRover = document.querySelector('.active');
+            let roverIndex = activeRover.getAttribute('id');
+            console.log(imgList[roverIndex]);
+            imgList[roverIndex].forEach((item, index) => {
+                addThumbnail(item, index)
+            });
         })
-    } // loadList function
+}
+/*
+    (() => {
+        let roverIndex = $(".active").attr("id");
+        $.each(imgList[roverIndex], function (index, photo) {
+            console.log(index, photo),
+            addThumbnail(index, photo)
+        })})
+    .catch((error) => console.error(error));
+*/
 
-    function loadRovers(rovers) {
-        $.each(rovers, function (index, roverChoice) {
-            loadList(index, roverChoice)
-        })
-    }
+
+
+loadRoversAndBuildThumbnails();
+
 
 let dummyArray = [
-   {
+    {
         id: 1,
         solDate: 12312,
         earthDate: 12387023,
@@ -72,31 +113,9 @@ let dummyArray = [
     }
 ]
 
-function addThumbnail(roverIndex, photo, photoIndex) { //constructs grid of thumbnails; "photo" isn't called, but it doesn't work without it
-        let url = photoIndex.img;
-        let subArray = imgList[roverIndex];
-        let indexNumber = subArray.indexOf(photoIndex); // gets index number from array to call details in modal
-        let thumbnailList = $('#thumbnails');
-        let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#exampleModal" 
-            data-whatever="` + indexNumber + `" src="` + url + `">`)
-        thumbnailList.append(thumbnailListItem);
-    }
-
-$.each(dummyArray, function (photo, index) { // constructs grid of thumbnails from dummy array
-    let url = index.img; 
-    let number = dummyArray.indexOf(index); // gets index number from array to call details in modal
-    let thumbnailList = $('#thumbnails');
-    let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#exampleModal" 
-        data-whatever="` + number + `" src="` + url + `">`)
-    thumbnailList.append(thumbnailListItem);
-    })
-
-/* loadRovers(rovers).then(function () {
-    let roverIndex = 0;
-    $.each((imgList[roverIndex]), function (photo, index) {
-        addThumbnail(photo, index)})
+/* $.each(dummyArray, function (item, index){
+    addThumbnail(item, index)
 }) */
-
 
 
 //MODAL DISPLAY
@@ -107,7 +126,7 @@ $('#modal').on('show.bs.modal', function (event) {
     var contents = dummyArray[number] // Gets object from array using the index number variable from addThumbnail
 
     let modalText = // template literal of modal text
-`Camera: ${contents.cameraName}
+        `Camera: ${contents.cameraName}
 Martian Sol Date: ${contents.solDate}
 Earth Date: ${contents.earthDate}`
 
@@ -116,20 +135,21 @@ Earth Date: ${contents.earthDate}`
     modal.find('.modal-body img').attr('src', contents.img)
     modal.find('.modal-body p').text(modalText)
     let imgSize = (modal.find('img'))[0].naturalWidth // gets the size of the photo to adjust modal width
-    modalSize (imgSize, modal)
-  })
+    modalSize(imgSize, modal)
+})
 
-function modalSize (imgSize, modal) {
-let modalWidth = modal.find('.modal-dialog')
+function modalSize(imgSize, modal) {
+    let modalWidth = modal.find('.modal-dialog')
 
-if (imgSize > 766) {
-    modalWidth.attr('class', 'modal-dialog modal-xl')
-}
-else if (imgSize > 466) {
-    modalWidth.attr('class', 'modal-dialog modal-lg')
-}
-else {
-    modalWidth.attr('class', 'modal-dialog')
-}
+    if (imgSize > 766) {
+        modalWidth.attr('class', 'modal-dialog modal-xl')
+    }
+    else if (imgSize > 466) {
+        modalWidth.attr('class', 'modal-dialog modal-lg')
+    }
+    else {
+        modalWidth.attr('class', 'modal-dialog')
+    }
 
 }
+
