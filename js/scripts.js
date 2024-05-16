@@ -1,10 +1,3 @@
-/* 
-
-load images from all four rovers
-click on rover name to display images for that rover
-
-*/
-
 let roverArray = ["curiosity", "opportunity", "perseverance", "spirit"]
 
 let imgList = [
