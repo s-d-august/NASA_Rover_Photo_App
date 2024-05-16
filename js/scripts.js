@@ -43,76 +43,10 @@ function addThumbnail(index, item) { //constructs grid of thumbnails
     thumbnailList.append(thumbnailListItem);
 }
 
-
-function loadRoversAndBuildThumbnails() {
-    return new Promise((resolve, reject) => {
-        try {
-            loadRovers();
-            console.log(imgList);
-            resolve();
-        } catch (error) {
-            reject(error);
-        }
-    })
-        .then(() => {
-            let activeRover = document.querySelector('.active');
-            let roverIndex = activeRover.getAttribute('id');
-            console.log(imgList[roverIndex]);
-            imgList[roverIndex].forEach((item, index) => {
-                addThumbnail(item, index)
-            });
-        })
-}
-
-loadList().then(function () {
-    $.each(imgList, function (index, item) {
         addThumbnail(index, item)
     })
 })
 
-/* JQuery version of the .then half of the above function
-    (() => {
-        let roverIndex = $(".active").attr("id");
-        $.each(imgList[roverIndex], function (index, photo) {
-            console.log(index, photo),
-            addThumbnail(index, photo)
-        })})
-    .catch((error) => console.error(error));
-*/
-
-// loadRoversAndBuildThumbnails();
-
-/*
-let dummyArray = [
-    {
-        id: 1,
-        solDate: 12312,
-        earthDate: 12387023,
-        cameraName: "FHAZ",
-        roverName: "Curiosity",
-        img: "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04102/opgs/edr/fcam/FLB_761645828EDR_F1060660FHAZ00302M_.JPG"
-    },
-    {
-        id: 2,
-        solDate: 67867,
-        earthDate: 45289134709,
-        cameraName: "RHAZ",
-        roverName: "Perseverance",
-        img: "https://mars.nasa.gov/msl-raw-images/msss/04102/mhli/4102MH0001530001404334U01_DXXX.jpg"
-    },
-    {
-        id: 3,
-        solDate: 235245,
-        earthDate: 112346514,
-        cameraName: "MAST",
-        roverName: "Spirit",
-        img: "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04102/opgs/edr/rcam/RRB_761645951EDR_S1060660RHAZ00300M_.JPG"
-    }
-]
-
- $.each(dummyArray, function (item, index){
-    addThumbnail(item, index)
-}) */
 
 
 //MODAL DISPLAY
