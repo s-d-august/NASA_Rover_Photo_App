@@ -49,7 +49,7 @@ function loadRoversAndBuildThumbnails() {
     return new Promise((resolve, reject) => {
         try {
             loadRovers();
-            console.log('ok');
+            console.log(imgList);
             resolve();
         } catch (error) {
             reject(error);
