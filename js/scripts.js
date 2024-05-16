@@ -1,10 +1,7 @@
 let roverArray = ["curiosity", "opportunity", "perseverance", "spirit"]
 
 let imgList = [
-    [],
-    [],
-    [],
-    []
+
 ];
 
 function loadRovers() {
@@ -13,8 +10,10 @@ function loadRovers() {
     })
 }
 
-function loadList(subArray, roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
-    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
+function loadList() { //loads image thumbnails and details and pushes them to the imgList array
+    let roverName = $(".active").attr("id");
+    let roverNumber = $(".active").attr("data-whatever")
+    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/latest_photos'
     return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
         $.each(responseJSON.latest_photos, function (index, item) {
 
@@ -27,7 +26,7 @@ function loadList(subArray, roverChoice) { //loads image thumbnails and details 
                 id: item.id,
             };
 
-            imgList[subArray].push(photo)
+            imgList.push(photo)
 
         }
         )
@@ -36,7 +35,7 @@ function loadList(subArray, roverChoice) { //loads image thumbnails and details 
     })
 } // loadList function
 
-function addThumbnail(item, index) { //constructs grid of thumbnails
+function addThumbnail(index, item) { //constructs grid of thumbnails
     console.log(item, index)
     let thumbnailList = $('#thumbnails');
     let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#modal" 
@@ -65,6 +64,12 @@ function loadRoversAndBuildThumbnails() {
         })
 }
 
+loadList().then(function () {
+    $.each(imgList, function (index, item) {
+        addThumbnail(index, item)
+    })
+})
+
 /* JQuery version of the .then half of the above function
     (() => {
         let roverIndex = $(".active").attr("id");
@@ -75,9 +80,9 @@ function loadRoversAndBuildThumbnails() {
     .catch((error) => console.error(error));
 */
 
-loadRoversAndBuildThumbnails();
+// loadRoversAndBuildThumbnails();
 
-
+/*
 let dummyArray = [
     {
         id: 1,
@@ -105,7 +110,7 @@ let dummyArray = [
     }
 ]
 
-/* $.each(dummyArray, function (item, index){
+ $.each(dummyArray, function (item, index){
     addThumbnail(item, index)
 }) */
 
@@ -115,7 +120,7 @@ let dummyArray = [
 $('#modal').on('show.bs.modal', function (event) {
     var thumbnail = $(event.relatedTarget) // Thumbnail that triggered the modal
     var number = thumbnail.data('whatever') // Extract info from data-* attributes
-    var contents = dummyArray[number] // Gets object from array using the index number variable from addThumbnail
+    var contents = imgList[number] // Gets object from array using the index number variable from addThumbnail
 
     let modalText = // template literal of modal text
         `Camera: ${contents.cameraName}
