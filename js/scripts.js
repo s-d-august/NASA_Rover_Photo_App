@@ -64,7 +64,8 @@ function loadRoversAndBuildThumbnails() {
             });
         })
 }
-/*
+
+/* JQuery version of the .then half of the above function
     (() => {
         let roverIndex = $(".active").attr("id");
         $.each(imgList[roverIndex], function (index, photo) {
@@ -73,8 +74,6 @@ function loadRoversAndBuildThumbnails() {
         })})
     .catch((error) => console.error(error));
 */
-
-
 
 loadRoversAndBuildThumbnails();
 
