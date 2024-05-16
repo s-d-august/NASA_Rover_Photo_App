@@ -1,7 +1,10 @@
 let roverArray = ["curiosity", "opportunity", "perseverance", "spirit"]
 
 let imgList = [
-
+    [],
+    [],
+    [],
+    [],
 ];
 
 function loadRovers() {
