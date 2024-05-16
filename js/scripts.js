@@ -13,10 +13,8 @@ function loadRovers() {
     })
 }
 
-function loadList() { //loads image thumbnails and details and pushes them to the imgList array
-    let roverName = $(".active").attr("id");
-    let roverNumber = $(".active").attr("data-whatever")
-    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/latest_photos'
+function loadList(roverIndex, roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
+    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
     return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
         $.each(responseJSON.latest_photos, function (index, item) {
 
@@ -29,7 +27,7 @@ function loadList() { //loads image thumbnails and details and pushes them to th
                 id: item.id,
             };
 
-            imgList.push(photo)
+            imgList[roverIndex].push(photo)
 
         }
         )
@@ -46,6 +44,9 @@ function addThumbnail(index, item) { //constructs grid of thumbnails
     thumbnailList.append(thumbnailListItem);
 }
 
+loadRovers().then(function () {
+    let roverIndex = $(".active").attr("data-whatever");
+    $.each(imgList[roverIndex], function (index, item) {
         addThumbnail(index, item)
     })
 })
