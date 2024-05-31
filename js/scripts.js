@@ -1,42 +1,63 @@
-let roverArray = ["curiosity", "opportunity", "perseverance", "spirit"]
+var roverArray = ["curiosity", "opportunity", "perseverance", "spirit"]
 
-let imgList = [
+var imgList = [
     [],
     [],
     [],
     [],
 ];
 
-function loadRovers() {
+var roverLoaderArray = []
+
+/* function loadRovers() {
     $.each(roverArray, function (index, roverChoice) {
         loadList(index, roverChoice)
     })
-}
+}*/
 
-function loadList(roverIndex, roverChoice) { //loads image thumbnails and details and pushes them to the imgList array
-    let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
-    return $.ajax(apiUrl, { dataType: 'json' }).then(function (responseJSON) {
-        $.each(responseJSON.latest_photos, function (index, item) {
+var loadList = (function () { //loads image thumbnails and details and pushes them to the imgList array
+    function addThumbnail(index, item) { //constructs grid of thumbnails
+        console.log(item, index)
+        let thumbnailList = $('#thumbnails');
+        let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#modal" 
+                data-whatever="${index}" src="${item.img}">`) //data-whatever passes the index number so the details can be called in the modal
+        thumbnailList.append(thumbnailListItem);
+    }
 
-            let photo = {
-                img: item.img_src,
-                roverName: item.rover.name,
-                cameraName: item.camera.full_name,
-                solDate: item.sol,
-                earthDate: item.earth_date,
-                id: item.id,
-            };
+    var roverLoaderArrayFunction =
+        ($.each(roverArray, function (index, roverChoice) {
+            let apiUrl = 'https://mars-photos.herokuapp.com/api/v1/rovers/' + roverChoice + '/latest_photos'
+            return $.ajax(apiUrl, { dataType: 'json' })
+                .then(function (responseJSON) {
+                    roverLoaderArray.push(responseJSON)
+                })
+        }))
 
-            imgList[roverIndex].push(photo)
+    const curiosity = (function () { $.ajax('https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/latest_photos', { dataType: 'json' }).then(function (responseJSON) { return responseJSON }) })
+    const opportunity = (function () { return $.ajax('https://mars-photos.herokuapp.com/api/v1/rovers/opportunity/latest_photos', { dataType: 'json' }) })
+    const perseverance = (function () { return $.ajax('https://mars-photos.herokuapp.com/api/v1/rovers/perseverance/latest_photos', { dataType: 'json' }) })
+    const spirit = (function () { return $.ajax('https://mars-photos.herokuapp.com/api/v1/rovers/spirit/latest_photos', { dataType: 'json' }) })
 
-        }
-        )
+
+
+
+
+
+
+    Promise.all([curiosity, opportunity, perseverance, spirit]).then(function () {
+
+        console.log(roverLoaderArray)
+        console.log(roverLoaderArrayFunction)
+        let roverIndex = $(".active").attr("data-whatever");
+        $.each((roverLoaderArray[1].latest_photos), function (index, item) {
+            addThumbnail(index, item)
+        })
     }).catch(function (e) {
         console.error(e);
     })
-} // loadList function
+})(); // loadList function
 
-function addThumbnail(index, item) { //constructs grid of thumbnails
+/*function addThumbnail(index, item) { //constructs grid of thumbnails
     console.log(item, index)
     let thumbnailList = $('#thumbnails');
     let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#modal" 
@@ -44,13 +65,13 @@ function addThumbnail(index, item) { //constructs grid of thumbnails
     thumbnailList.append(thumbnailListItem);
 }
 
-loadRovers().then(function () {
+ loadRovers().then(function () {
     let roverIndex = $(".active").attr("data-whatever");
     $.each(imgList[roverIndex], function (index, item) {
         addThumbnail(index, item)
     })
 })
-
+*/
 
 
 //MODAL DISPLAY
