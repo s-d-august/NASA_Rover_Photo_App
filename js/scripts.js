@@ -23,7 +23,10 @@ Promise.all([
     $.each((roverArray[0][roverIndex].latest_photos), function (index, item) {
       addThumbnail(index, item)
     })
+
+    $(".loading").addClass('d-none')
   })
+
   .catch((error) => console.error("An error occurred:", error));
 
 

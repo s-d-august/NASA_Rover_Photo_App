@@ -58,6 +58,13 @@ p {
   margin-top: 90px;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
 
 .modal-header {
   background-color: darkred;
