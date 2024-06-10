@@ -2,7 +2,6 @@ var roverArray = []
 
 var loadList = (function () { //loads image thumbnails and details and pushes them to the imgList array
   function addThumbnail(index, item) { //constructs grid of thumbnails
-    console.log(item, index)
     let thumbnailList = $('#thumbnails');
     let thumbnailListItem = $(`<img class="col img-thumbnail" data-toggle="modal" data-target="#modal" 
                 data-whatever="${index}" src="${item.img_src}">`) //data-whatever passes the index number so the details can be called in the modal
@@ -19,7 +18,6 @@ var loadList = (function () { //loads image thumbnails and details and pushes th
     .then(function (jsons) {
       roverArray.push(jsons)
       let roverIndex = $(".active").attr("data-whatever");
-      console.log(roverArray[0])
       $.each((roverArray[0][roverIndex].latest_photos), function (index, item) {
         addThumbnail(index, item)
       })
