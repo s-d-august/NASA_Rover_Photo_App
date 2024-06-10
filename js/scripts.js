@@ -1,4 +1,4 @@
-var roverArray = []
+var photoArray = []
 
 //loads image thumbnails and details and pushes them to the imgList array
 
@@ -19,8 +19,8 @@ Promise.all([
 ])
   .then((responses) => Promise.all(responses.map((r) => r.json())))
   .then(function (jsons) {
-    roverArray.push(jsons)
-    $.each((roverArray[0][roverIndex].latest_photos), function (index, item) {
+    photoArray.push(jsons)
+    $.each((photoArray[0][roverIndex].latest_photos), function (index, item) {
       addThumbnail(index, item)
     })
 
@@ -36,7 +36,7 @@ $('#modal').on('show.bs.modal', function (event) { // Triggers when modal is ope
   let roverIndex = $(".active").attr("data-whatever");
   var thumbnail = $(event.relatedTarget) // Thumbnail that triggered the modal
   var number = thumbnail.data('whatever') // Extract info from data-* attributes
-  var contents = roverArray[0][roverIndex].latest_photos[number] // Gets object from array using the index number variable from addThumbnail
+  var contents = photoArray[0][roverIndex].latest_photos[number] // Gets object from array using the index number variable from addThumbnail
 
   let modalText = // template literal of modal text
     `Camera: ${contents.camera.full_name} (${contents.camera.name})
@@ -74,7 +74,7 @@ $('.nav-link').on('click', function (event) {
   let selected = $(event.target);
   let roverIndex = selected.data('whatever')
   selected.addClass('active')
-  $.each((roverArray[0][roverIndex].latest_photos), function (index, item) {
+  $.each((photoArray[0][roverIndex].latest_photos), function (index, item) {
     addThumbnail(index, item)
   })
 
